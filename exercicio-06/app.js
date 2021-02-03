@@ -27,13 +27,13 @@ const fruits = ['morango', 'banana', 'mamão'];
 const containsPineapple = fruits.includes('abacaxi');
 const containsPear = fruits.includes('pera');
 
-if (containsPineapple) {
-  console.log('A string "abacaxi" existe no array fruits.');
-} else if (containsPear) {
-  console.log('A string "pera" existe no array fruits.');
-} else {
-  console.log('Nem pera nem abacaxi existem no array "fruits".');
-}
+// if (containsPineapple) {
+//   console.log('A string "abacaxi" existe no array fruits.');
+// } else if (containsPear) {
+//   console.log('A string "pera" existe no array fruits.');
+// } else {
+//   console.log('Nem pera nem abacaxi existem no array "fruits".');
+// }
 
 /*
   02
@@ -52,13 +52,13 @@ const currentTime = 16;
 const isMorning = currentTime >= 6 && currentTime <= 11;
 const isAfternoon = currentTime >= 12 && currentTime <= 17;
 
-if (isMorning) {
-  console.log('Bom dia!');
-} else if (isAfternoon) {
-  console.log('Boa tarde!');
-} else {
-  console.log('Boa noite!');
-}
+// if (isMorning) {
+//   console.log('Bom dia!');
+// } else if (isAfternoon) {
+//   console.log('Boa tarde!');
+// } else {
+//   console.log('Boa noite!');
+// }
 
 /*
   03
@@ -75,10 +75,11 @@ if (isMorning) {
 */
 
 const myAge = 21;
-const ageLimit = myAge <= 7 || myAge >= 65;
+const isChild = myAge <= 7;
+const isOlder = myAge >= 65
 let admissionMessage = '';
 
-if (ageLimit) {
+if (isChild || isOlder) {
   admissionMessage = 'Para você, a entrada é grátis!';
 } else {
   admissionMessage = 'A entrada é R$ 30,00.';
@@ -107,7 +108,7 @@ for (let i = 0; i < numbers.length; i++) {
   }
 }
 
-console.log(newArray);
+// console.log(newArray);
 
 /*
   05
@@ -176,4 +177,4 @@ for (let i = 0; i < randomNumbers.length; i++) {
 }
 const oddLog = oddNumbers.join(', ').replace(', 3', ' e 3');
 const evenLog = evenNumbers.join(', ').replace(', 5', ' e 5');
-console.log(`Numeros ímpares: ${oddLog} Números pares: ${evenLog}`);
+// console.log(`Numeros ímpares: ${oddLog} Números pares: ${evenLog}`);

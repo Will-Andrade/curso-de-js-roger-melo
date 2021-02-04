@@ -67,13 +67,17 @@ const upperCasedWords = function (wordsToConvert = []) {
   let wordsInUpperCase = [];
 
   for (let i = 0; i < wordsToConvert.length; i++) {
-    wordsInUpperCase.push(wordsToConvert[i].toUpperCase());
+    const convertedWord = wordsToConvert[i].toUpperCase();
+
+    wordsInUpperCase.push(convertedWord);
   }
 
   return wordsInUpperCase;
 }
 
-// console.log(upperCasedWords(millennialWords));
+const millennialWordsInUpperCase = upperCasedWords(millennialWords);
+
+// console.log(millennialWordsInUpperCase);
 
 /*
   05
@@ -95,14 +99,16 @@ const verifyNumber = function (testNumber) {
 }
 
 for (let i = 0; i < randomNumbers.length; i++) {
-  if (verifyNumber(randomNumbers[i])) {
+  const isPositive = verifyNumber(randomNumbers[i]);
+
+  if (isPositive) {
     positiveNumbers++;
   } else {
     negativeNumbers++;
   }
 }
 
-console.log(`O array "randomNumbers" possui ${randomNumbers.length} números, sendo ${positiveNumbers} positivos e ${negativeNumbers} negativos.`)
+// console.log(`O array "randomNumbers" possui ${randomNumbers.length} números, sendo ${positiveNumbers} positivos e ${negativeNumbers} negativos.`);
 
 /*
   06
@@ -118,15 +124,21 @@ const getOddNumbers = function (randomArray = []) {
   let oddNumbers = [];
 
   for (let i = 0; i < randomArray.length; i++) {
-    if (randomArray[i] % 2 !== 0) {
-      oddNumbers.push(randomArray[i]);
+    const number = randomArray[i]
+    const isOdd = number % 2 !== 0;
+
+    if (isOdd) {
+      oddNumbers.push(number);
     }
   }
 
   return oddNumbers;
 }
 
-console.log(getOddNumbers([83, 52, 31, 73, 98, 37, 61, 56, 12, 24, 35, 3, 34, 80, 42]))
+const oddNumbers = getOddNumbers([83, 52, 31, 73, 98, 37, 61, 56, 12, 24, 35, 3, 34, 80, 42]);
+
+// console.log(oddNumbers);
+
 /*
   07
 
@@ -166,7 +178,9 @@ const functions = [
 let sentence = '';
 
 for (let i = 0; i < functions.length; i++) {
-  sentence += `${functions[i]()} `;
+  const string = `${functions[i]()} `;
+
+  sentence += string;
 }
 
-console.log(sentence)
+// console.log(sentence);

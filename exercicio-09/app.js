@@ -152,9 +152,13 @@ const theTriple = number => number * 3;
 
 const numbers = [1, 2, 3];
 
-// numbers.forEach((item, index, array) => {
-//   console.log(`O ${index + 1}º item do array ${array} é ${item}.`);
-// })
+const numbersInfo = (item, index, array) => {
+  const newIndex = index + 1;
+
+  console.log(`O ${newIndex}º item do array ${array} é ${item}.`);
+}
+
+// numbers.forEach(numbersInfo);
 
 /*
   12
@@ -206,9 +210,11 @@ const review = [
 
 let paragraphs = '';
 
-review.forEach((message) => {
+const createParagraphs = (message) => {
   paragraphs += `<p>${message}</p>`;
-})
+}
+
+review.forEach(createParagraphs);
 
 section.innerHTML = paragraphs;
 

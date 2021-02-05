@@ -7,6 +7,16 @@
 
 const myName = 'Willian Bonni dos Santos Andrade';
 
+// for (let i = 0; i < 3; i++) {
+//   console.log(`Dentro do bloco de código: ${myName}`);
+// }
+
+// console.log(`Fora do bloco de código: ${myName}`);
+
+// Provando que possui sim um escoplo global
+
+
+
 /*
   02
 
@@ -86,8 +96,7 @@ const car = {
   - Faça o carro andar e exiba no console se ele realmente está em movimento.
 */
 
-car.run();
-
+// console.log(car.run());
 // console.log(car.isRunning);
 
 /*
@@ -96,8 +105,7 @@ car.run();
   - Faça o carro parar e exiba no console se ele realmente está parado.
 */
 
-car.stop();
-
+// console.log(car.stop());
 // console.log(car.isRunning);
 
 /*

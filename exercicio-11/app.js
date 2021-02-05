@@ -5,6 +5,8 @@
   - Ela deve ter um escopo global.
 */
 
+const myName = 'Willian Bonni dos Santos Andrade';
+
 /*
   02
 
@@ -18,6 +20,24 @@
     defined" será exibido no console;
   - Você sabe por que isso aconteceu?
 */
+
+const showMyAge = () => {
+  let myAge = 21;
+
+  console.log(myAge);
+}
+
+// showMyAge();
+
+// console.log(myAge);
+
+
+// Não é possível ser acessada pois variáveis declaradas com let só são
+// inicializadas no período de "Execução" da leitura do código. Sendo 
+// assim, não é possível acessar "lets" antes de suas declarações e 
+// atribuições de valor como feito em "var", Function Expressions, etc.
+
+
 
 /*
   03
@@ -37,11 +57,38 @@
       "O NOME_DO_CARRO está disponível nas cores COR_01, COR_02 e COR_03".
 */
 
+const car = {
+  name: 'Corsa',
+  brand: "Chevrolet",
+  colors: ['White', 'Black', 'Red'],
+  isRunning: false,
+  run () {
+    this.isRunning = true;
+
+    return `${this.name} está em movimento.`
+  },
+  stop () {
+    this.isRunning = false;
+
+    return `O ${this.name} está parado.`
+  },
+  getColorsMessage () {
+    const lastItem = this.colors[this.colors.length - 1];
+    const allColors = this.colors.join(', ').replace(`, ${lastItem}`, ` e ${lastItem}`);
+
+    return `O ${this.name} está disponível nas cores ${allColors}`
+  }
+};
+
 /*
   04
 
   - Faça o carro andar e exiba no console se ele realmente está em movimento.
 */
+
+car.run();
+
+// console.log(car.isRunning);
 
 /*
   05
@@ -49,11 +96,17 @@
   - Faça o carro parar e exiba no console se ele realmente está parado.
 */
 
+car.stop();
+
+// console.log(car.isRunning);
+
 /*
   06
 
   - Exiba, no console, a mensagem com as cores do carro.
 */
+
+// console.log(car.getColorsMessage());
 
 /*
   07
@@ -61,3 +114,5 @@
   - Exiba, no console, a mensagem "O carro é um MARCA_DO_CARRO NOME_DO_CARRO";
   - Utilize a notação de colchetes para acessar as propriedades do carro.
 */
+
+// console.log(`O carro é um ${car['brand']} ${car['name']}`);

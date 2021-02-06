@@ -6,7 +6,14 @@
   - Exiba no console os elementos filhos da ul com a classe já inserida.
 */
 
+const ul = document.querySelector('.videos');
+const childrenArray = Array.from(ul.children);
 
+const addNewClass = li => li.classList.add('video');
+
+childrenArray.forEach(addNewClass)
+
+// console.log(ul.children);
 
 /*
   02
@@ -15,7 +22,9 @@
     e exiba-o no console;
 */
 
+const secondaryTitle = document.querySelector('h2');
 
+// console.log(secondaryTitle.parentElement);
 
 /*
   03
@@ -23,7 +32,9 @@
   - Descubra quem é o próximo elemento irmão do h1 e exiba-o no console;
 */
 
+const mainTitle = document.querySelector('h1');
 
+// console.log(mainTitle.nextElementSibling);
 
 /*
   04
@@ -31,7 +42,7 @@
   - Descubra quem é o irmão anterior da ul e exiba-o no console;
 */
 
-
+// console.log(ul.previousElementSibling);
 
 /*
   05
@@ -40,7 +51,13 @@
     exibida no console.
 */
 
+const lis = document.querySelectorAll('.video');
 
+const showClickedElement = (event) => console.log(event.target);
+
+const handleLICLick = item => item.addEventListener('click', showClickedElement);
+
+lis.forEach(handleLICLick)
 
 /*
   06
@@ -58,7 +75,14 @@ const videos = [{
 }, {
   name: 'Como fazer requisições HTTP com o método fetch | JavaScript',
   length: '00:02:55'
-}]
+}];
+const button = document.querySelector('button');
+
+const addNewItem = ({ name }) => ul.innerHTML += `<li>${name}</li>`;
+
+const handleButtonClick = () => videos.forEach(addNewItem);
+
+button.addEventListener('click', handleButtonClick)
 
 /*
   07
@@ -66,3 +90,11 @@ const videos = [{
   - Se um clique no h1 acontecer, faça com que todos os elementos dentro do body 
     sejam removidos.
 */
+
+const removeAllElements = () => {
+  const body = document.body;
+
+  body.innerHTML = ''
+}
+
+mainTitle.addEventListener('click', removeAllElements);

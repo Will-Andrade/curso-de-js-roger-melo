@@ -6,17 +6,32 @@
 
 const form = document.querySelector('form');
 
-const showInputValue = event => {
-  const inputValue = event.target.input.value;
-
-  event.preventDefault();
-  console.log(inputValue);
-
-  // testValue(inputValue);
-  testStrongerValue(inputValue)
+const clearInput = () => {
+  input.value = '';
+  input.focus();
 }
 
-form.addEventListener('submit', showInputValue);
+const logMessage = message => {
+  console.log(message);
+  clearInput();
+}
+
+const handleSubmit = event => {
+  event.preventDefault();
+
+  const input = event.target.input;
+  const inputRegex = /[a-zA-Z0-9]{7,11}/;
+  const isAValidValue = inputRegex.test(input.value);
+
+  if (isAValidValue) {
+    logMessage('O valor inserido no input é válido =)');
+    return
+  }
+
+  logMessage('Valor inválido =(');
+}
+
+form.addEventListener('submit', handleSubmit);
 
 /*
   02
@@ -79,18 +94,6 @@ console.log(NASAResult);
     - "jozeti" não é um valor válido, pois contém 6 caracteres.
 */
 
-const testValue = value => {
-  const inputRegex = /.{7,}/;
-  const isAMatch = inputRegex.test(value);
-
-  if (isAMatch) {
-    console.log('O valor inserido no input é válido =)');
-    return
-  }
-
-  console.log('Valor inválido =(');
-}
-
 /*
   07
 
@@ -102,15 +105,3 @@ const testValue = value => {
     - "0xY79aYx54e" é um valor válido, pois contém 11 letras e números;
     - "eich_1961" não é um valor válido, pois contém um caractere especial.
 */
-
-const testStrongerValue = value => {
-  const inputRegex = /[a-zA-Z0-9]{7,11}/;
-  const isAMatch = inputRegex.test(value);
-
-  if (isAMatch) {
-    console.log('O valor inserido no input é válido =)');
-    return
-  }
-
-  console.log('Valor inválido =(');
-}

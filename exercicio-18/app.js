@@ -24,23 +24,32 @@
 const form = document.querySelector('form');
 const input = document.querySelector('#username');
 const button = document.querySelector('.button');
-const feedbackParagraph = document.createElement('p');
+
+const usernameInputFeedback = document.createElement('p');
+const submitFormFeedback = document.createElement('p');
+
+submitFormFeedback.setAttribute('data-feedback', 'submit-feedback');
 
 const inputValidation = inputValue => /^[a-zA-Z]{6,}$/.test(inputValue);
 
-input.addEventListener('keyup', () => {
+input.addEventListener('input', () => {
   const isAValidUsername = inputValidation(input.value)
+  const feedbackMessageExists = document.querySelector('[data-feedback="submit-feedback"]');
+
+  if (feedbackMessageExists) {
+    submitFormFeedback.remove();
+  }
 
   if (!isAValidUsername) {
-    feedbackParagraph.setAttribute('class', 'username-help-feedback');
-    feedbackParagraph.textContent = "O valor deve conter no mínimo 6 caracteres, com apenas letras maiúsculas e/ou minúsculas";
-    input.insertAdjacentElement('afterend', feedbackParagraph);
+    usernameInputFeedback.setAttribute('class', 'username-help-feedback');
+    usernameInputFeedback.textContent = "O valor deve conter no mínimo 6 caracteres, com apenas letras maiúsculas e/ou minúsculas";
+    input.insertAdjacentElement('afterend', usernameInputFeedback);
     return
   }
 
-  feedbackParagraph.setAttribute('class', 'username-success-feedback');
-  feedbackParagraph.textContent = "Username válido =)";
-  input.insertAdjacentElement('afterend', feedbackParagraph);
+  usernameInputFeedback.setAttribute('class', 'username-success-feedback');
+  usernameInputFeedback.textContent = "Username válido =)";
+  input.insertAdjacentElement('afterend', usernameInputFeedback);
 })
 
 form.addEventListener('submit', event => {
@@ -49,15 +58,15 @@ form.addEventListener('submit', event => {
   const isAValidUsername = inputValidation(input.value);
 
   if (!isAValidUsername) {
-    feedbackParagraph.setAttribute('class', 'submit-help-feedback');
-    feedbackParagraph.textContent = "Por favor, insira um username válido";
-    button.insertAdjacentElement('afterend', feedbackParagraph);
+    submitFormFeedback.setAttribute('class', 'submit-help-feedback');
+    submitFormFeedback.textContent = "Por favor, insira um username válido";
+    button.insertAdjacentElement('afterend', submitFormFeedback);
     return
   }
 
-  feedbackParagraph.setAttribute('class', 'submit-success-feedback');
-  feedbackParagraph.textContent = "Dados enviados =)";
-  button.insertAdjacentElement('afterend', feedbackParagraph);
+  submitFormFeedback.setAttribute('class', 'submit-success-feedback');
+  submitFormFeedback.textContent = "Dados enviados =)";
+  button.insertAdjacentElement('afterend', submitFormFeedback);
 })
 
 /*

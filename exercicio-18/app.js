@@ -24,8 +24,10 @@
 const form = document.querySelector('form');
 const input = document.querySelector('#username');
 const button = document.querySelector('.button');
+
 const usernameInputFeedback = document.createElement('p');
 const submitFormFeedback = document.createElement('p');
+
 submitFormFeedback.setAttribute('data-feedback', 'submit-feedback');
 
 const invalidInputInfo = {

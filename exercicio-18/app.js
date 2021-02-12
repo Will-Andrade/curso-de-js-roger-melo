@@ -140,9 +140,7 @@ form.addEventListener('submit', handleFormElement);
 
 const someFunction = (array, callback) => {
   for (let i = 0; i < array.length; i++) {
-    const getValue = callback(array[i]);
-
-    if (Boolean(getValue)) {
+    if (callback(array[i])) {
       return true
     }
   }

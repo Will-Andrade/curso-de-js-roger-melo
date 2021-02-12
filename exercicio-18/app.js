@@ -24,50 +24,84 @@
 const form = document.querySelector('form');
 const input = document.querySelector('#username');
 const button = document.querySelector('.button');
-
 const usernameInputFeedback = document.createElement('p');
 const submitFormFeedback = document.createElement('p');
-
 submitFormFeedback.setAttribute('data-feedback', 'submit-feedback');
+
+const invalidInputInfo = {
+  className: 'username-help-feedback',
+  message: `O valor deve conter no mínimo 6 caracteres, com apenas letras maiúsculas e/ou minúsculas`,
+  feedbackElement: usernameInputFeedback,
+  target: input
+};
+
+const validInputInfo = {
+  className: 'username-success-feedback',
+  message: "Username válido =)",
+  feedbackElement: usernameInputFeedback,
+  target: input
+};
+
+const invalidSubmitInfo = {
+  className: 'submit-help-feedback',
+  message: "Por favor, insira um username válido",
+  feedbackElement: submitFormFeedback,
+  target: button
+};
+
+const validSubmitInfo = {
+  className: 'submit-success-feedback',
+  message: "Dados enviados =)",
+  feedbackElement: submitFormFeedback,
+  target: button
+};
 
 const inputValidation = inputValue => /^[a-zA-Z]{6,}$/.test(inputValue);
 
-input.addEventListener('input', () => {
-  const isAValidUsername = inputValidation(input.value)
-  const feedbackMessageExists = document.querySelector('[data-feedback="submit-feedback"]');
+const insertFeedbackIntoDOM = paragraphInfo => {
+  const { className, message, feedbackElement, target } = paragraphInfo;
 
+  feedbackElement.setAttribute('class', className);
+  feedbackElement.textContent = message;
+  target.insertAdjacentElement('afterend', feedbackElement);
+}
+
+const removeSubmitParagraph = () => {
+  const feedbackMessageExists = document.querySelector('[data-feedback="submit-feedback"]');
+  
   if (feedbackMessageExists) {
     submitFormFeedback.remove();
   }
+}
+
+const handleInputElement = () => {
+  const isAValidUsername = inputValidation(input.value)
+
+  removeSubmitParagraph();
 
   if (!isAValidUsername) {
-    usernameInputFeedback.setAttribute('class', 'username-help-feedback');
-    usernameInputFeedback.textContent = "O valor deve conter no mínimo 6 caracteres, com apenas letras maiúsculas e/ou minúsculas";
-    input.insertAdjacentElement('afterend', usernameInputFeedback);
+    insertFeedbackIntoDOM(invalidInputInfo);
     return
   }
 
-  usernameInputFeedback.setAttribute('class', 'username-success-feedback');
-  usernameInputFeedback.textContent = "Username válido =)";
-  input.insertAdjacentElement('afterend', usernameInputFeedback);
-})
+  insertFeedbackIntoDOM(validInputInfo);
+}
 
-form.addEventListener('submit', event => {
+const handleFormElement = event => {
   event.preventDefault();
 
   const isAValidUsername = inputValidation(input.value);
 
   if (!isAValidUsername) {
-    submitFormFeedback.setAttribute('class', 'submit-help-feedback');
-    submitFormFeedback.textContent = "Por favor, insira um username válido";
-    button.insertAdjacentElement('afterend', submitFormFeedback);
+    insertFeedbackIntoDOM(invalidSubmitInfo);
     return
   }
 
-  submitFormFeedback.setAttribute('class', 'submit-success-feedback');
-  submitFormFeedback.textContent = "Dados enviados =)";
-  button.insertAdjacentElement('afterend', submitFormFeedback);
-})
+  insertFeedbackIntoDOM(validSubmitInfo);
+}
+
+input.addEventListener('input', handleInputElement);
+form.addEventListener('submit', handleFormElement);
 
 /*
   02

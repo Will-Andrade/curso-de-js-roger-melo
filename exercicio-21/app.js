@@ -5,7 +5,11 @@
     o novo array no console.
 */
 
-const randomNumbers = [10, 30, 15, 25, 50, 40, 5]
+const randomNumbers = [10, 30, 15, 25, 50, 40, 5];
+
+const oddNumbers = randomNumbers.filter(oddNumber => oddNumber % 2);
+
+// console.log(oddNumbers);
 
 /*
   02
@@ -13,7 +17,17 @@ const randomNumbers = [10, 30, 15, 25, 50, 40, 5]
   - Exiba no console quantos números abaixo de 501 o array abaixo possui.
 */
 
-const crazyNumbers = [937, 5, 395, 402, 501, 333, 502, 781, 3, 691]
+const crazyNumbers = [937, 5, 395, 402, 501, 333, 502, 781, 3, 691];
+
+const numbersLessThan501 = crazyNumbers.reduce((accumulator, crazyNumber) => {
+  if (crazyNumber < 501) {
+    accumulator++
+  }
+
+  return accumulator
+}, 0);
+
+// console.log(numbersLessThan501);
 
 /*
   03
@@ -22,7 +36,11 @@ const crazyNumbers = [937, 5, 395, 402, 501, 333, 502, 781, 3, 691]
     exiba o novo array no console.
 */
 
-const numbers = [5, 7, 3]
+const numbers = [5, 7, 3];
+
+const squaredNumbers = numbers.map(number => number ** 2);
+
+// console.log(squaredNumbers);
 
 /*
   04
@@ -41,13 +59,19 @@ const cart = [
   { name: 'Sekiro: Shadows Die Twice', price: 179.99 },
   { name: 'Resident Evil 2', price: 119.90 },
   { name: 'Death Stranding', price: 149.99 }
-]
+];
 
 /*
   - Nome 1
   - Nome 2
   - Nome 3
 */
+
+const gamesInTheCart = cart.reduce((accumulator, game) => {
+  return `${accumulator}- ${game.name}\n`
+}, '');
+
+// console.log(gamesInTheCart);
 
 /*
   05
@@ -68,7 +92,13 @@ const tarantinoMovies = [
   { name: 'Cães de Aluguel', release: 1992 },
   { name: 'À Prova de Morte', release: 2007 },
   { name: 'Kill Bill: Volume 1', release: 2003 }
-]
+];
+
+const moviesLaunchedBefore2000s = tarantinoMovies.filter(movie => {
+  return movie.release < 2000
+});
+
+// console.log(moviesLaunchedBefore2000s);
 
 /*
   06
@@ -85,7 +115,11 @@ const tvShows = [
   { name: 'The Handmaid\'s Tale', releaseYear: 2017 },
   { name: 'House M.D.', releaseYear: 2004 },
   { name: 'Watchmen', releaseYear: 2019 }
-]
+];
+
+const tvShowNames = tvShows.map(tvShow => tvShow.name);
+
+console.log(tvShowNames);
 
 /*
   07

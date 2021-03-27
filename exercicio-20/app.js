@@ -11,7 +11,9 @@
     mensagem "Um segundo e meio se passaram desde que a página foi carregada".
 */
 
+const message = "Um segundo e meio se passaram desde que a página foi carregada";
 
+setTimeout(console.log, 1500, message);
 
 /* 
   03
@@ -20,7 +22,31 @@
   - O clique no botão "Parar contador" deve fazer com que o contador exiba 0.
 */
 
+const counterContainer = document.querySelector('.counter-container');
+const counterControls = document.querySelector('div.row');
 
+let timer = null;
+
+const incrementCounter = () => {
+  const incrementedCounter = Number(counterContainer.textContent) + 1;
+  counterContainer.textContent = incrementedCounter;
+}
+
+const stopCounter = () => {
+  clearInterval(timer);
+  counterContainer.textContent = 0;
+}
+
+const timerHandler = ({ target }) => {
+  const clickedElementClassName = target.className;
+  const startTimer = clickedElementClassName.includes('button-init-counter');
+  
+  if (!startTimer) return stopCounter();
+  
+  return timer = setInterval(incrementCounter, 1000);
+}
+
+counterControls.addEventListener('click', timerHandler);
 
 /* 
   04

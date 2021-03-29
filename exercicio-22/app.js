@@ -6,7 +6,13 @@
   - Exiba o array ordenado no console.
 */
 
-const names = ['Caio', 'André', 'Dário']
+const names = ['Caio', 'André', 'Dário'];
+
+const orderedNames = names
+  .map(name => name)
+  .sort();
+
+// console.log(orderedNames);
 
 /*
   02
@@ -21,7 +27,13 @@ const characters = [
   { id: 02, name: 'Nala' },
   { id: 01, name: 'Scar' },
   { id: 04, name: 'Mufasa' }
-]
+];
+
+const orderedCharacters = characters
+  .map(character => character)
+  .sort((character1, character2) => character1.id - character2.id);
+
+// console.log(orderedCharacters);
 
 /*
   03
@@ -31,7 +43,13 @@ const characters = [
   - Exiba o array ordenado no console.
 */
 
-const numbers = [41, 15, 63, 349, 25, 22, 143, 64, 59, 291]
+const numbers = [41, 15, 63, 349, 25, 22, 143, 64, 59, 291];
+
+const orderedNumbers = numbers
+  .map(number => number)
+  .sort((firstNumber, secondNumber) => firstNumber - secondNumber);
+
+// console.log(orderedNumbers);
 
 /*
   04
@@ -39,7 +57,12 @@ const numbers = [41, 15, 63, 349, 25, 22, 143, 64, 59, 291]
   - Encontre e exiba no console o 1º item maior que 50 do array abaixo.
 */
 
-const randomNumbers = [10, 5, 0, 40, 60, 10, 20, 70]
+const randomNumbers = [10, 5, 0, 40, 60, 10, 20, 70];
+
+const firstNumberGreaterThan50 = randomNumbers
+  .find(randomNumber => randomNumber > 50);
+
+// console.log(firstNumberGreaterThan50);
 
 /*
   05
@@ -49,7 +72,14 @@ const randomNumbers = [10, 5, 0, 40, 60, 10, 20, 70]
   - Exiba o array ordenado no console.
 */
 
-const people = ['Cauã', 'Alfredo', 'Bruno']
+const people = ['Cauã', 'Alfredo', 'Bruno'];
+
+const orderedPeople = people
+  .map(person => person)
+  .sort()
+  .reverse();
+
+// console.log(orderedPeople);
 
 /*
   06
@@ -59,7 +89,14 @@ const people = ['Cauã', 'Alfredo', 'Bruno']
   - Exiba a string no console.
 */
 
-const ingredients = ['vinho', 'tomate', 'cebola', 'cogumelo']
+const ingredients = ['vinho', 'tomate', 'cebola', 'cogumelo'];
+
+const ingredientsMessage = ingredients
+  .map(ingredient => `${ingredient} cozido`)
+  .join(', ')
+  .replace('cebola cozido', 'cebola cozida');
+
+// console.log(ingredientsMessage);
 
 /*
   07
@@ -79,7 +116,13 @@ const topBrazilmovies = [
   { title: 'Tropa de Elite 2', peopleAmount: 11204815, distributedBy: 'Zazen' },
   { title: 'Os Vingadores', peopleAmount: 10968065, distributedBy: 'Disney' },
   { title: 'Dona Flor e Seus Dois Maridos', peopleAmount: 10735524, distributedBy: 'Embrafilme' }
-]
+];
+
+const totalDisneyViewers = topBrazilmovies
+  .filter(movie => movie.distributedBy === 'Disney')
+  .reduce((accumulator, { peopleAmount }) => accumulator + peopleAmount, 0);
+
+// console.log(totalDisneyViewers);
 
 /*
   08
@@ -99,7 +142,13 @@ const pets = [
   { name: 'Lucy', age: 5, gender: 'Female', type: 'Cat' },
   { name: 'Cristal', age: 3, gender: 'Female', type: 'Dog' },
   { name: 'Chico', age: 6, gender: 'Male', type: 'Dog' }
-]
+];
+
+const dogHumanAges = pets
+  .filter(({ type }) => type === 'Dog')
+  .map(({ age }) => age * 7);
+
+// console.log(dogHumanAges);
 
 /*
   09
@@ -107,6 +156,13 @@ const pets = [
   - Considerando o array topBrazilmovies, através do map ou do reduce, insira 
     os nomes dos filmes na ul do index.html.
 */
+
+const movieList = document.querySelector('ul');
+
+const movieHTMLTemplate = topBrazilmovies
+  .reduce((accumulator, { title }) => accumulator += `<li>${title}</li>`, '');
+
+movieList.innerHTML = movieHTMLTemplate;
 
 /*
   10

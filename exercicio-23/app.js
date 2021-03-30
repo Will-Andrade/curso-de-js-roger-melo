@@ -25,11 +25,11 @@ const people = [
   { firstName: 'Eric', lastName: 'Silva', score: 82 }
 ];
 
-const orderedPeople = people.map(person => ({ person: person.firstName, lastName: person.lastName, score: person.score })).sort((item1, item2) => {
-  return item1.score - item2.score
-});
+const peopleOrderedByScore = people
+  .map(({ firstName, lastName, score }) => ({ firstName, lastName, score }))
+  .sort((person1, person2) => person1.score - person2.score);
 
-console.log(orderedPeople);
+console.log(peopleOrderedByScore);
 
 /*
   03
@@ -43,7 +43,7 @@ console.log(orderedPeople);
 
 const animals = ['cão', 'gato', 'boi', 'leão', 'gnu', 'alce', 'ema'];
 
-const threeLetterAnimals = animals.filter(animal => animal.length === 3);
+const threeLetterAnimals = animals.filter(({ length }) => length === 3);
 
 /*
   04
@@ -52,7 +52,7 @@ const threeLetterAnimals = animals.filter(animal => animal.length === 3);
     nome de cada animal. Ex.: [6, 8, 2].
 */
 
-const animalsNameLength = animals.map(animal => animal.length);
+const animalsOrderedByNameLength = animals.map(({ length }) => length);
 
 /*
   05
@@ -70,9 +70,9 @@ const friends = [
   { id: 5, name: 'Solange', nearMe: false }
 ];
 
-const friendsCloseBy = friends.filter(friend => {
-  return friend.nearMe
-}).map(closeFriend => closeFriend.name)
+const friendsCloseBy = friends
+  .filter(({ nearMe }) => nearMe)
+  .map(({ name }) => name);
 
 /*
   06
@@ -83,9 +83,9 @@ const friendsCloseBy = friends.filter(friend => {
 
 const numbers = [46, 86, 212, 29, 51, 9, 25, 42, 81];
 
-const oddNumbersSum = numbers.filter(number => number % 2).reduce((acc, oddNumber) => {
-  return acc + oddNumber
-}, 0);
+const oddNumbersSum = numbers
+  .filter(number => number % 2)
+  .reduce((acc, oddNumber) => acc + oddNumber, 0);
 
 /*
   07
@@ -108,6 +108,6 @@ const data = [{
   population: 263991379
 }];
 
-const countriesPopulationsSum = data.filter(country => ({ country: country.country, population: country.population })).reduce((acc, country) => {
-  return acc + country.population
-}, 0);
+const countriesPopulationsSum = data
+  .filter(({ country, population }) => ({ country, population }))
+  .reduce((acc, { population }) => acc + population, 0);

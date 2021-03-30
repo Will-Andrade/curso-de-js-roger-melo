@@ -5,7 +5,9 @@
   - Não modifique a string manualmente.
 */
 
-const myString = '    JS      '
+const myString = '    JS      ';
+
+console.log(myString.trim());
 
 /*
   02
@@ -21,7 +23,13 @@ const people = [
   { firstName: 'José', lastName: 'Antônio', score: 100 },
   { firstName: 'Felipe', lastName: 'Tavares', score: 71 },
   { firstName: 'Eric', lastName: 'Silva', score: 82 }
-]
+];
+
+const orderedPeople = people.map(person => ({ person: person.firstName, lastName: person.lastName, score: person.score })).sort((item1, item2) => {
+  return item1.score - item2.score
+});
+
+console.log(orderedPeople);
 
 /*
   03
@@ -33,7 +41,9 @@ const people = [
       debugger antes de partir para o próximo.
 */
 
-const animals = ['cão', 'gato', 'boi', 'leão', 'gnu', 'alce', 'ema']
+const animals = ['cão', 'gato', 'boi', 'leão', 'gnu', 'alce', 'ema'];
+
+const threeLetterAnimals = animals.filter(animal => animal.length === 3);
 
 /*
   04
@@ -42,7 +52,7 @@ const animals = ['cão', 'gato', 'boi', 'leão', 'gnu', 'alce', 'ema']
     nome de cada animal. Ex.: [6, 8, 2].
 */
 
-
+const animalsNameLength = animals.map(animal => animal.length);
 
 /*
   05
@@ -58,9 +68,11 @@ const friends = [
   { id: 3, name: 'Luana', nearMe: false },
   { id: 4, name: 'Nilson', nearMe: true },
   { id: 5, name: 'Solange', nearMe: false }
-]
+];
 
-
+const friendsCloseBy = friends.map(friend => ({ id: friend.id, name: friend.name, nearMe: friend.nearMe })).filter(friend => {
+  return friend.nearMe
+});
 
 /*
   06
@@ -69,7 +81,11 @@ const friends = [
     do array abaixo.
 */
 
-const numbers = [46, 86, 212, 29, 51, 9, 25, 42, 81]
+const numbers = [46, 86, 212, 29, 51, 9, 25, 42, 81];
+
+const oddNumbersSum = numbers.filter(number => number % 2).reduce((acc, oddNumber) => {
+  return acc += oddNumber
+}, 0);
 
 /*
   07
@@ -90,4 +106,8 @@ const data = [{
 }, {
   country: 'Indonesia',
   population: 263991379
-}]
+}];
+
+const countriesPopulationsSum = data.filter(country => ({ country: country.country, population: country.population })).reduce((acc, country) => {
+  return acc += country.population
+}, 0);

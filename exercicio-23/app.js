@@ -70,9 +70,9 @@ const friends = [
   { id: 5, name: 'Solange', nearMe: false }
 ];
 
-const friendsCloseBy = friends.map(friend => ({ id: friend.id, name: friend.name, nearMe: friend.nearMe })).filter(friend => {
+const friendsCloseBy = friends.filter(friend => {
   return friend.nearMe
-});
+}).map(closeFriend => closeFriend.name)
 
 /*
   06
@@ -84,7 +84,7 @@ const friendsCloseBy = friends.map(friend => ({ id: friend.id, name: friend.name
 const numbers = [46, 86, 212, 29, 51, 9, 25, 42, 81];
 
 const oddNumbersSum = numbers.filter(number => number % 2).reduce((acc, oddNumber) => {
-  return acc += oddNumber
+  return acc + oddNumber
 }, 0);
 
 /*
@@ -109,5 +109,5 @@ const data = [{
 }];
 
 const countriesPopulationsSum = data.filter(country => ({ country: country.country, population: country.population })).reduce((acc, country) => {
-  return acc += country.population
+  return acc + country.population
 }, 0);

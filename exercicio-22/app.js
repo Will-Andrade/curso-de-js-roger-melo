@@ -6,13 +6,13 @@
   - Exiba o array ordenado no console.
 */
 
+const getArrayCopy = arr => arr.map(item => item);
+
 const names = ['Caio', 'André', 'Dário'];
 
-const orderedNames = names
-  .map(name => name)
-  .sort();
+const namesOrderedInAlphabeticalOrder = getArrayCopy(names).sort();
 
-// console.log(orderedNames);
+// console.log(namesOrderedInAlphabeticalOrder);
 
 /*
   02
@@ -29,11 +29,11 @@ const characters = [
   { id: 04, name: 'Mufasa' }
 ];
 
-const orderedCharacters = characters
-  .map(character => character)
+const charactersOrderedById = characters
+  .map(({ id, name }) => ({ id, name }))
   .sort((character1, character2) => character1.id - character2.id);
 
-// console.log(orderedCharacters);
+// console.log(charactersOrderedById);
 
 /*
   03
@@ -44,12 +44,10 @@ const orderedCharacters = characters
 */
 
 const numbers = [41, 15, 63, 349, 25, 22, 143, 64, 59, 291];
-
-const orderedNumbers = numbers
-  .map(number => number)
+const numbersInAscendingOrder = getArrayCopy(numbers)
   .sort((firstNumber, secondNumber) => firstNumber - secondNumber);
 
-// console.log(orderedNumbers);
+// console.log(numbersInAscendingOrder);
 
 /*
   04
@@ -58,7 +56,6 @@ const orderedNumbers = numbers
 */
 
 const randomNumbers = [10, 5, 0, 40, 60, 10, 20, 70];
-
 const firstNumberGreaterThan50 = randomNumbers
   .find(randomNumber => randomNumber > 50);
 
@@ -74,12 +71,9 @@ const firstNumberGreaterThan50 = randomNumbers
 
 const people = ['Cauã', 'Alfredo', 'Bruno'];
 
-const orderedPeople = people
-  .map(person => person)
-  .sort()
-  .reverse();
+const peopleInReverseAlphabeticalOrder = getArrayCopy(people).sort().reverse();
 
-// console.log(orderedPeople);
+// console.log(peopleInReverseAlphabeticalOrder);
 
 /*
   06
@@ -91,12 +85,15 @@ const orderedPeople = people
 
 const ingredients = ['vinho', 'tomate', 'cebola', 'cogumelo'];
 
-const ingredientsMessage = ingredients
-  .map(ingredient => `${ingredient} cozido`)
-  .join(', ')
-  .replace('cebola cozido', 'cebola cozida');
+const cookedIngredients = ingredients.reduce((acc, ingredient, index ,arr) => {
+  const correctWordGender = /a$/.test(ingredient) ? 'cozida' : 'cozido';
+  const isLastItem = index === arr.length - 1;
+  const ingredientMessage = `${ingredient} ${correctWordGender}`;
 
-// console.log(ingredientsMessage);
+  return isLastItem ? acc += ingredientMessage : acc += `${ingredientMessage}, `
+}, '')
+
+// console.log(cookedIngredients);
 
 /*
   07
@@ -119,8 +116,8 @@ const topBrazilmovies = [
 ];
 
 const totalDisneyViewers = topBrazilmovies
-  .filter(movie => movie.distributedBy === 'Disney')
-  .reduce((accumulator, { peopleAmount }) => accumulator + peopleAmount, 0);
+  .filter(({ distributedBy }) => distributedBy === 'Disney')
+  .reduce((acc, { peopleAmount }) => acc + peopleAmount, 0);
 
 // console.log(totalDisneyViewers);
 
@@ -144,11 +141,11 @@ const pets = [
   { name: 'Chico', age: 6, gender: 'Male', type: 'Dog' }
 ];
 
-const dogHumanAges = pets
+const dogsInHumanAges = pets
   .filter(({ type }) => type === 'Dog')
-  .map(({ age }) => age * 7);
+  .map(({ name, age, gender, type }) => ({ name, age: age * 7, gender, type }));
 
-// console.log(dogHumanAges);
+// console.log(dogsInHumanAges);
 
 /*
   09

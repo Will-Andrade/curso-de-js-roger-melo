@@ -13,6 +13,49 @@
       executado quando o request anterior for finalizado.
 */
 
+const getPokemons = (url, callback) => {
+  const request = new XMLHttpRequest();
+
+  request.addEventListener('readystatechange', () => {
+    const requestWasOK = request.readyState === 4 && request.status === 200;
+    const requestWasNotOK = request.readyState === 4;
+
+    if (requestWasOK) {
+      const data = JSON.parse(request.responseText);
+
+      callback(null, `Pokémon obtido: ${data.name}`);
+      return
+    }
+
+    if (requestWasNotOK) {
+      callback('Não foi possível obter o Pokémon', null);
+    }
+  })
+
+  request.open('GET', url);
+  request.send();
+}
+
+const getPokemonData = (err, data) => err ? console.log(err) : console.log(data)
+
+const getPokemonURL = id => `https://pokeapi.co/api/v2/pokemon/${id}`
+
+const bulbasaur = getPokemonURL(1);
+const charmander = getPokemonURL(4);
+const squirtle = getPokemonURL(7);
+
+getPokemons(bulbasaur, (err, data) => {
+  getPokemonData(err, data);
+
+  getPokemons(charmander, (err, data) => {
+    getPokemonData(err, data);
+
+    getPokemons(squirtle, (err, data) => {
+      getPokemonData(err, data);
+    });
+  });
+});
+
 /*
   02
 
@@ -35,6 +78,18 @@
   curso, onde falaremos sobre TDD. Vá se aquecendo =)
 */
 
+const myMapFunc = (arr, callback) => {
+  let newArray = [];
+
+  const addNewItemToNewArray = element => newArray.push(callback(element));
+  arr.forEach(addNewItemToNewArray);
+
+  return newArray
+}
+
+// console.log(myMapFunc([1, 2, 3], number => number * 2));
+// console.log(myMapFunc([1, 2, 3], number => number * 3));
+
 /*
   03
 
@@ -44,10 +99,10 @@
 
 const person = {
   name: 'Roger',
-  getName: () => this.name
+  getName: () => person.name
 }
 
-// console.log(person.getName())
+// console.log(person.getName());
 
 /*
   04
@@ -58,8 +113,14 @@ const person = {
     delas.
 */
 
-const x = 'x'
-// const x = 'y'
+const x = 'x';
+
+const getX = () => {
+  const x = 'y';
+  return x
+}
+
+// console.log(x, getX());
 
 /*
   05
@@ -68,14 +129,8 @@ const x = 'x'
     conseguir.
 */
 
-const getFullName = (user) => {
-  const firstName = user.firstName
-  const lastName = user.lastName
-
-  return `${firstName} ${lastName}`
-}
-
-console.log(getFullName({ firstName: 'Afonso', lastName: 'Solano' }))
+const getFullName = ({ firstName, lastName }) => `${firstName} ${lastName}`
+// console.log(getFullName({ firstName: 'Afonso', lastName: 'Solano' }))
 
 /*
   06
@@ -90,6 +145,35 @@ console.log(getFullName({ firstName: 'Afonso', lastName: 'Solano' }))
     a mensagem 'Não temos o equivalente hexadecimal para COR';
   - Exiba o hexadecimal de 8 cores diferentes usando a função criada acima.
 */
+
+const convertToHex = colorName => {
+  const hexColors = {
+    red: '#ff1a1a',
+    cyan: '#33ffff',
+    purple: '#660066',
+    yellow: '#e6e600',
+    orange: '#b37400'
+  }
+
+  return hexColors[colorName] 
+  ? `O hexadecimal para a cor ${colorName} é ${hexColors[colorName]}`
+  : `Não temos o equivalente hexadecimal para ${colorName}` 
+}
+
+const testColors = [
+  'cyan',
+  'Lemon-lime',
+  'orange',
+  'red',
+  'purple',
+  'blue',
+  'yellow',
+  'pink'
+];
+
+const getColorHexCode = color => console.log(convertToHex(color));
+
+// testColors.forEach(getColorHexCode);
 
 
 /*
@@ -114,4 +198,12 @@ const people = [
   { id: 87, name: 'Felipe', age: 18, federativeUnit: 'Minas Gerais' },
   { id: 9 , name: 'Gabriel', age: 20, federativeUnit: 'São Paulo' },
   { id: 73, name: 'Aline', age: 19, federativeUnit: 'Brasília' }
-]
+];
+
+const createOrIncrementAgeFrequency = (acc, { age }) => {
+  acc[age] = acc[age] + 1 || 1;
+  return acc
+}
+
+const ageFrequency = people.reduce(createOrIncrementAgeFrequency, {});
+console.log(ageFrequency);

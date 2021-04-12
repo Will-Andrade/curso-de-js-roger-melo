@@ -30,8 +30,8 @@ const getUsers = url => new Promise((resolve, reject) => {
 })
 
 getUsers('https://jsonplaceholder.typicode.com/users')
-  .then(response => console.log(response))
-  .catch(error => console.log(error))
+  .then(console.log)
+  .catch(console.log)
 
 /*
   02
@@ -49,17 +49,16 @@ getUsers('https://jsonplaceholder.typicode.com/users')
 
 //? sum, subtraction, multiplication, division, remainder
 
-const calculator = operator => (num1, num2) => {
-  const operators = {
-    '+': `Resultado da operação: ${num1} ${operator} ${num2} = ${num1 + num2}`,
-    '-': `Resultado da operação: ${num1} ${operator} ${num2} = ${num1 - num2}`,
-    '*': `Resultado da operação: ${num1} ${operator} ${num2} = ${num1 * num2}`,
-    '/': `Resultado da operação: ${num1} ${operator} ${num2} = ${num1 / num2}`,
-    '%': `Resultado da operação: ${num1} ${operator} ${num2} = ${num1 % num2}`
-  }
+const getOperationMessage = (num1, operator, num2, operation) => 
+  `Resultado da operação: ${num1} ${operator} ${num2} = ${operation}`
 
-  return operators[operator] ? operators[operator] : "Operação inválida."
-}
+const calculator = operator => (num1, num2) => ({
+  '+': getOperationMessage(num1, operator, num2, num1 + num2),
+  '-': getOperationMessage(num1, operator, num2, num1 - num2),
+  '*': getOperationMessage(num1, operator, num2, num1 * num2),
+  '/': getOperationMessage(num1, operator, num2, num1 / num2),
+  '%': getOperationMessage(num1, operator, num2, num1 % num2)
+})[operator] || "Operação inválida."
 
 const testOperators = ['+', '-', '*', '/', '%'];
 // testOperators.forEach(operator => console.log(calculator(operator)(10, 2)))
@@ -79,18 +78,22 @@ const testOperators = ['+', '-', '*', '/', '%'];
 */
 
 const sul = ['Paraná', 'Rio Grande do Sul', 'Santa Catarina'];
-const sudeste = ['São Paulo', 'Minas Gerais', 'Rio de Janeiro', 'Espírito Santo'];
+const sudeste = [
+  'São Paulo', 
+  'Minas Gerais', 
+  'Rio de Janeiro', 
+  'Espírito Santo'
+];
 
-const brasil = sul.concat(sudeste);
+let brasil = sul.concat(sudeste);
 // console.log(brasil);
 
 brasil.unshift('Pará', 'Amazonas', 'Acre');
+console.log(brasil.shift());
 // console.log(brasil);
 
-// console.log(brasil.shift());
-
-const newSul = brasil.filter(state => sul.includes(state));
-// console.log(newSul);
+const newSul = brasil.slice(2, 5)
+// console.log(newSul, brasil);
 
 /*
   04
@@ -111,12 +114,22 @@ const newSul = brasil.filter(state => sul.includes(state));
     every.
 */
 
-const nordeste = ['Maranhão', 'Piauí', 'Ceará', 'Rio Grande do Norte', 'Paraíba', 'Pernambuco', 'Alagoas', 'Sergipe', 'Bahia'];
+const nordeste = [
+  'Maranhão', 
+  'Piauí', 
+  'Ceará', 
+  'Rio Grande do Norte', 
+  'Paraíba', 
+  'Pernambuco', 
+  'Alagoas', 
+  'Sergipe', 
+  'Bahia'
+];
 
-const newSudeste = brasil.splice(6);
+const newSudeste = brasil.splice(5, 4);
 // console.log(newSudeste);
 
-nordeste.forEach(state => brasil.push(state));
+brasil = brasil.concat(nordeste)
 // console.log(brasil);
 
 const newBrasil = brasil
@@ -151,5 +164,7 @@ console.log(ceareSearchResult);
 const brasilStates = newBrasil.map(({ id, estado }) => {
   return { id: id + 1, estado: `${estado} pertence ao Brasil.`}
 })
+console.log(brasilStates);
 
-brasilStates.forEach(state => console.log(`${state.id}: ${state.estado}`))
+const statesWithEvenIndex = brasilStates.filter(({ id }) => id % 2 === 0);
+console.log(statesWithEvenIndex);

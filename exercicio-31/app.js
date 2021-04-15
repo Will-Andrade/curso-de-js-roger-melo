@@ -8,19 +8,14 @@
     do GitHub.
 */
 
-const url = 'https://api.github.com/users/Will-Andrade';
-
-const getUserData = async user => {
-  const response = await fetch(user);
-  return await response.json();
+const getUserData = async username => {
+  const response = await fetch(`https://api.github.com/users/${username}`);
+  return response.json();
 }
 
-const showUserData = async () => {
-  const userData = await getUserData(url);
-  console.log(userData);
-}
+const showUserData = async username => console.log(await getUserData(username));
 
-// showUserData();
+// showUserData('Will-Andrade');
 
 /*
   02
@@ -32,8 +27,9 @@ const showUserData = async () => {
 
 const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-const divisibleBy2And3 = numbers
-  .filter(number => number % 2 === 0 || number % 3 === 0);
+const getMultiplesOf2Or3 = number => number % 2 === 0 || number % 3 === 0
+
+const divisibleBy2And3 = numbers.filter(getMultiplesOf2Or3);
 // console.log(divisibleBy2And3);
 
 /*
@@ -50,19 +46,15 @@ const divisibleBy2And3 = numbers
     - Rafaela => "PRaPfaPePla".
 */
 
-const myName = ['Wi', 'lli', 'an', 'An', 'dra', 'de'];
-const vowels = ['a', 'e', 'i', 'o', 'u'];
+// const getNameInPLanguage = name => 
+//   name.reduce((acc, syllable) => `${acc}P${syllable}`, '');
 
-const myNameInPLang = myName.reduce((acc, syllable) => {
-  vowels.forEach(vowel => {
-    if (syllable.toLowerCase().includes(vowel)) {
-      acc += `P${syllable}`
-    }
-  });
-
-  return acc
-}, '');
-// console.log(myNameInPLang);
+// const namesInSyllables = [
+//   ['Wi', 'lli', 'an', 'An', 'dra', 'de'],
+//   ['Ro', 'ger'],
+//   ['Na', 'tá', 'lia'],
+//   ['Ra', 'fa', 'ela']
+// ].forEach(name => console.log(getNameInPLanguage(name)));
 
 /*
   04
@@ -80,11 +72,12 @@ const myNameInPLang = myName.reduce((acc, syllable) => {
 */
 
 const firstName = 'Willian';
-const separatedNameMessage = firstName
-  .split('')
-  .reduce((acc, letter, index) => 
-    acc += `- "${letter}" é a ${index}ª letra do meu nome; \n`, '')
-// console.log(separatedNameMessage);
+
+const getNameMessage = (acc, letter, index) => 
+  acc += `- "${letter}" é a ${index + 1}ª letra do meu nome; \n`;
+
+const separatedNameMessage = firstName.split('').reduce(getNameMessage, '');
+console.log(separatedNameMessage);
 
 /*
   05
@@ -120,20 +113,10 @@ const person = {
 */
 
 const scores = [100, 90, 85, 100, 60, 85, 100, 90, 55, 75, 60];
-const getItemOccurrences = (arr, item) => {
-  let itemOccurrences = 0;
 
-  for (let i = 0; i < arr.length; i++) {
-    const element = arr[i];
-    
-    if (element === item) {
-      itemOccurrences++
-    }
-  }
-
-  return itemOccurrences
-}
-// console.log(getItemOccurrences(scores, 100));
+const getOccurrences = (arr, item) => 
+  arr.reduce((acc, arrayItem) => item === arrayItem ? acc += 1 : acc, 0);
+console.log(getOccurrences(scores, 100));
 
 /*
   07
@@ -162,21 +145,20 @@ const getItemOccurrences = (arr, item) => {
 const myFilterFunction = (array, callback) => {
   let newArray = [];
 
-  for (let i = 0; i < array.length; i++) {
-    if (Boolean(callback(array[i], i, array))) {
-      newArray.push(array[i]);
+  const filterItem = (item, index, array) => {
+    const filterWasSuccessful = callback(item, index, array);
+
+    if (filterWasSuccessful) {
+      newArray.push(item);
     }
   }
 
-  // array.forEach((item, index, array) => {
-  //   newArray.push(callback(item, index, array));
-  // })
-
+  array.forEach(filterItem);
   return newArray
 }
 
 console.log(myFilterFunction([1, 2, 3], item => item)); // [1, 2, 3];
 console.log(myFilterFunction([0, 1, 2], item => item)); // [1, 2];
-myFilterFunction([1, 2, 3], item => item < 2) // [1];
+console.log(myFilterFunction([1, 2, 3], item => item < 2)); // [1];
 console.log(myFilterFunction([1, 2, 3, 5], (item, index) => item === index + 1)); // [1, 2, 3];
 console.log(myFilterFunction([1, 2, 3, 2, 1, 5], (item, index, array) => index === array.indexOf(item))); // [1, 2, 3, 5];

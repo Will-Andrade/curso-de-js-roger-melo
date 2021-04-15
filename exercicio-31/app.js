@@ -8,6 +8,20 @@
     do GitHub.
 */
 
+const url = 'https://api.github.com/users/Will-Andrade';
+
+const getUserData = async user => {
+  const response = await fetch(user);
+  return await response.json();
+}
+
+const showUserData = async () => {
+  const userData = await getUserData(url);
+  console.log(userData);
+}
+
+// showUserData();
+
 /*
   02
 
@@ -16,7 +30,11 @@
   - Exiba esse novo array no console.
 */
 
-const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+const divisibleBy2And3 = numbers
+  .filter(number => number % 2 === 0 || number % 3 === 0);
+// console.log(divisibleBy2And3);
 
 /*
   03
@@ -31,6 +49,20 @@ const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     - Natália => "PNaPtáPlia";
     - Rafaela => "PRaPfaPePla".
 */
+
+const myName = ['Wi', 'lli', 'an', 'An', 'dra', 'de'];
+const vowels = ['a', 'e', 'i', 'o', 'u'];
+
+const myNameInPLang = myName.reduce((acc, syllable) => {
+  vowels.forEach(vowel => {
+    if (syllable.toLowerCase().includes(vowel)) {
+      acc += `P${syllable}`
+    }
+  });
+
+  return acc
+}, '');
+// console.log(myNameInPLang);
 
 /*
   04
@@ -47,6 +79,13 @@ const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
   Dica: pesquise pelo método split.
 */
 
+const firstName = 'Willian';
+const separatedNameMessage = firstName
+  .split('')
+  .reduce((acc, letter, index) => 
+    acc += `- "${letter}" é a ${index}ª letra do meu nome; \n`, '')
+// console.log(separatedNameMessage);
+
 /*
   05
 
@@ -59,6 +98,13 @@ const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
   Dica: pesquise pelo método Object.keys().
 */
+
+const person = {
+  name: 'Willian',
+  lastName: 'Andrade',
+  age: 21
+}
+// console.log(Object.keys(person));
 
 /*
   06
@@ -73,7 +119,21 @@ const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
   - Utilize o array abaixo para testar a função.
 */
 
-const scores = [100, 90, 85, 100, 60, 85, 100, 90, 55, 75, 60]
+const scores = [100, 90, 85, 100, 60, 85, 100, 90, 55, 75, 60];
+const getItemOccurrences = (arr, item) => {
+  let itemOccurrences = 0;
+
+  for (let i = 0; i < arr.length; i++) {
+    const element = arr[i];
+    
+    if (element === item) {
+      itemOccurrences++
+    }
+  }
+
+  return itemOccurrences
+}
+// console.log(getItemOccurrences(scores, 100));
 
 /*
   07
@@ -98,3 +158,25 @@ const scores = [100, 90, 85, 100, 60, 85, 100, 90, 55, 75, 60]
   Dica: lembre-se que o método filter inclui o item em questão no novo array 
   que está sendo gerado **apenas** se a função retorna um valor truthy.
 */
+
+const myFilterFunction = (array, callback) => {
+  let newArray = [];
+
+  for (let i = 0; i < array.length; i++) {
+    if (Boolean(callback(array[i], i, array))) {
+      newArray.push(array[i]);
+    }
+  }
+
+  // array.forEach((item, index, array) => {
+  //   newArray.push(callback(item, index, array));
+  // })
+
+  return newArray
+}
+
+console.log(myFilterFunction([1, 2, 3], item => item)); // [1, 2, 3];
+console.log(myFilterFunction([0, 1, 2], item => item)); // [1, 2];
+myFilterFunction([1, 2, 3], item => item < 2) // [1];
+console.log(myFilterFunction([1, 2, 3, 5], (item, index) => item === index + 1)); // [1, 2, 3];
+console.log(myFilterFunction([1, 2, 3, 2, 1, 5], (item, index, array) => index === array.indexOf(item))); // [1, 2, 3, 5];
